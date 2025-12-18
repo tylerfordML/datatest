@@ -1,0 +1,10 @@
+## JSON LOG
+{
+  "timestamp": "2025-01-22T20:31:14.123Z",
+  "level": "INFO",
+  "logger": "app.api",
+  "message": "request_completed",
+  "request_id": "a7f2b8d4-4e9e-4a77-9c8b-4c0b8d77e2a1",
+  "latency_seconds": 0.003,
+  "status": 200
+}
