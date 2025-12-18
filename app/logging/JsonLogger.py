@@ -20,3 +20,10 @@ class JsonLogger(logging.Formatter):
 
         return json.dumps(log_record)
 
+def setup():
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(JsonFormatter())
+
+    root = logging.getLogger()
+    root.setLevel(logging.INFO)
+    root.handlers = [handler]
