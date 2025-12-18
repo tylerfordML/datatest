@@ -21,9 +21,9 @@ class JsonLogger(logging.Formatter):
         return json.dumps(log_record)
 
 def setup():
-    handler = logging.StreamHandler(sys.stdout)
-    handler.setFormatter(JsonFormatter())
+    log_handler = logging.StreamHandler(sys.stdout)
+    log_handler.setFormatter(JsonLogger())
 
-    root = logging.getLogger()
-    root.setLevel(logging.INFO)
-    root.handlers = [handler]
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    logger.handlers = [log_handler]
