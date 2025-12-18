@@ -2,8 +2,8 @@ from fastapi import FastAPI
 from prometheus_client import make_asgi_app
 from app.api import router as api
 from app.health import router as health
-from app.logging import setup_logging
-from app.middleware import RequestID
+from app.logging import setup
+from app.middleware import HTTPRequestID
 
 setup_logging()
 
