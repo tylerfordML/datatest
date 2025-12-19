@@ -159,7 +159,7 @@ flowchart TD
     D --> CC2
     E --> CC2
     F --> CC2
-mermaid …
+```
 
 ### Key Design Layer Capabilities for Production Engineering
 
