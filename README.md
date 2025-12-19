@@ -12,72 +12,152 @@
 - **Governed:** Standards, policies, lifecycle management, and change control.
 - **Sustainable:** Long-term maintainability, CI/CD, and platform ownership
 
-### Key Design Layers For Production Engineering
-┌───────────────────────────────────────────────────────────────┐
-│                        API Consumers                          │
-│  • Web Apps  • Mobile Apps  • Partners  • Internal Services   │
-└───────────────────────────────────────────────────────────────┘
-                               │
-                               ▼
-┌───────────────────────────────────────────────────────────────┐
-│                     API Gateway / Management                  │
-│                                                               │
-│  • Authentication / Authorization (OAuth2, OIDC, mTLS)        │
-│  • Rate Limiting / Throttling / Quotas                        │
-│  • Request Validation & Transformation                        │
-│  • Routing & Load Balancing                                   │
-│  • Caching                                                    │
-│  • Policy Enforcement                                         │
-│  • API Analytics                                              │
-└───────────────────────────────────────────────────────────────┘
-                               │
-                               ▼
-┌───────────────────────────────────────────────────────────────┐
-│                    Application / Service Layer                │
-│                                                               │
-│  • Microservices / Domain Services                            │
-│  • Business Logic                                             │
-│  • Idempotency & Retries                                      │
-│  • Circuit Breakers                                           │
-│  • Input / Output Contracts                                   │
-└───────────────────────────────────────────────────────────────┘
-                               │
-               ┌───────────────┴───────────────┐
-               ▼                               ▼
-┌───────────────────────────────┐   ┌───────────────────────────┐
-│        Event / Async Layer    │   │      Integration Layer    │
-│                               │   │                           │
-│  • Message Queues             │   │  • Legacy Systems         │
-│  • Event Streams              │   │  • External APIs          │
-│  • Webhooks                   │   │  • Batch Interfaces       │
-└───────────────────────────────┘   └───────────────────────────┘
-               │                               │
-               └───────────────┬───────────────┘
-                               ▼
-┌───────────────────────────────────────────────────────────────┐
-│                         Data Layer                            │
-│                                                               │
-│  • Operational Databases                                      │
-│  • Data Warehouse / Lake                                      │
-│  • Caches                                                     │
-│  • Data Lineage & Metadata                                    │
-└───────────────────────────────────────────────────────────────┘
-   
- ───────────────────── Cross-Cutting Concerns ───────────────
-┌───────────────────────────────────────────────────────────────┐
-│  Observability                                                │
-│  • Metrics  • Logs  • Traces  • Alerts  • SLOs                │
-│                                                               │
-│  Traceability                                                 │
-│  • Correlation IDs  • Distributed Tracing                     │
-│  • Audit Logs  • Data Lineage                                 │
-│                                                               │
-│  Governance & Compliance                                      │
-│  • API Standards  • Versioning  • HIPAA / GDPR / SOC          │
-│                                                               │
-│  CI/CD & Platform Operations                                  │
-│  • Automated Testing  • IaC  • Deployment Pipelines           │
-└───────────────────────────────────────────────────────────────┘
+# Key Design Layers for Production Engineering
+
+```mermaid
+flowchart TD
+    %% API Consumers
+    A[API Consumers] --> B[API Gateway / Management]
+    
+    %% 1. API Gateway / Management Layer
+    subgraph Gateway["API Gateway / Management"]
+        B1[Authentication & Authorization (OAuth2, OIDC, mTLS)]
+        B2[Rate Limiting / Throttling / Quotas]
+        B3[Request Validation & Transformation]
+        B4[Routing & Load Balancing]
+        B5[Caching]
+        B6[Policy Enforcement]
+        B7[API Analytics]
+    end
+    B --> B1
+    B --> B2
+    B --> B3
+    B --> B4
+    B --> B5
+    B --> B6
+    B --> B7
+
+    %% 2. Application / Service Layer (Reliability, Resilience)
+    B --> C[Application / Service Layer]
+    subgraph AppService["Application / Service Layer"]
+        C1[Microservices / Domain Services]
+        C2[Business Logic]
+        C3[Idempotency & Retries]
+        C4[Circuit Breakers / Bulkheads]
+        C5[Input / Output Contracts]
+    end
+    C --> C1
+    C --> C2
+    C --> C3
+    C --> C4
+    C --> C5
+
+    %% 3. Event / Async Layer
+    C --> D[Event / Async Layer]
+    subgraph EventAsync["Event / Async Layer"]
+        D1[Message Queues]
+        D2[Event Streams]
+    end
+    D --> D1
+    D --> D2
+
+    %% 4. Integration Layer
+    C --> E[Integration Layer]
+    subgraph Integration["Integration Layer"]
+        E1[Legacy Systems]
+        E2[External APIs]
+        E3[Webhooks]
+        E4[Batch Interfaces]
+    end
+    E --> E1
+    E --> E2
+    E --> E3
+    E --> E4
+
+    %% 5. Data Layer
+    D --> F[Data Layer]
+    E --> F
+    subgraph Data["Data Layer"]
+        F1[Operational Databases]
+        F2[Data Warehouse / Lake]
+        F3[Caches]
+        F4[Data Lineage & Metadata]
+    end
+    F --> F1
+    F --> F2
+    F --> F3
+    F --> F4
+
+    %% 6. Security & Identity
+    subgraph Security["Security & Identity"]
+        S1[Zero Trust / Least Privilege / Auditability]
+    end
+    B --> S1
+    C --> S1
+    D --> S1
+    E --> S1
+    F --> S1
+
+    %% 7. Governance & Policy
+    subgraph Governance["Governance & Policy"]
+        G1[Standards, Versioning, Lifecycle Management, Compliance]
+    end
+    B --> G1
+    C --> G1
+    E --> G1
+    F --> G1
+
+    %% 8. Performance & Scalability
+    subgraph Performance["Performance & Scalability"]
+        P1[Caching, Async, Horizontal Scaling, Payload Optimization]
+    end
+    B --> P1
+    C --> P1
+    D --> P1
+    E --> P1
+    F --> P1
+
+    %% 9. Developer Experience (DX)
+    subgraph DX["Developer Experience"]
+        DX1[Docs, SDKs, Portals, Sandbox, Examples]
+    end
+    B --> DX1
+    C --> DX1
+
+    %% 10. Data & Contract Integrity
+    subgraph DataIntegrity["Data & Contract Integrity"]
+        DI1[Schema Validation, Strong Contracts, Data Quality Checks]
+    end
+    C --> DI1
+    D --> DI1
+    F --> DI1
+
+    %% 11. Platform & Operating Model
+    subgraph Platform["Platform & Operating Model"]
+        PL1[Ownership, CI/CD, IaC, Cost Allocation, API Product Mgmt]
+    end
+    B --> PL1
+    C --> PL1
+    D --> PL1
+    E --> PL1
+    F --> PL1
+
+    %% Cross-Cutting Concerns (optional visual)
+    subgraph CrossCutting["Cross-Cutting Concerns"]
+        CC1[Observability: Metrics, Logs, Traces, Alerts, SLOs]
+        CC2[Traceability: Correlation IDs, Distributed Tracing, Audit Logs]
+    end
+    B --> CC1
+    C --> CC1
+    D --> CC1
+    E --> CC1
+    F --> CC1
+    B --> CC2
+    C --> CC2
+    D --> CC2
+    E --> CC2
+    F --> CC2
+
 
 
 ### Key Design Layer Capabilities for Production Engineering
