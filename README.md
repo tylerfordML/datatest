@@ -14,6 +14,8 @@
 
 # Key Design Layers for Production Engineering
 
+### Diagram
+
 ```mermaid
 flowchart TD
     %% API Consumers
@@ -157,7 +159,6 @@ flowchart TD
     D --> CC2
     E --> CC2
     F --> CC2
-
 
 ### Key Design Layer Capabilities for Production Engineering
 
