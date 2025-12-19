@@ -17,17 +17,17 @@
 ```mermaid
 flowchart TD
     %% API Consumers
-    A[API Consumers] --> B[API Gateway / Management]
+    A["API Consumers"] --> B["API Gateway / Management"]
     
-    %% 1. API Gateway / Management Layer
+    %% API Gateway / Management Layer
     subgraph Gateway["API Gateway / Management"]
-        B1[Authentication & Authorization (OAuth2, OIDC, mTLS)]
-        B2[Rate Limiting / Throttling / Quotas]
-        B3[Request Validation & Transformation]
-        B4[Routing & Load Balancing]
-        B5[Caching]
-        B6[Policy Enforcement]
-        B7[API Analytics]
+        B1["Authentication and Authorization"]
+        B2["Rate Limiting / Throttling / Quotas"]
+        B3["Request Validation and Transformation"]
+        B4["Routing and Load Balancing"]
+        B5["Caching"]
+        B6["Policy Enforcement"]
+        B7["API Analytics"]
     end
     B --> B1
     B --> B2
@@ -37,14 +37,14 @@ flowchart TD
     B --> B6
     B --> B7
 
-    %% 2. Application / Service Layer (Reliability, Resilience)
-    B --> C[Application / Service Layer]
+    %% Application / Service Layer
+    B --> C["Application / Service Layer"]
     subgraph AppService["Application / Service Layer"]
-        C1[Microservices / Domain Services]
-        C2[Business Logic]
-        C3[Idempotency & Retries]
-        C4[Circuit Breakers / Bulkheads]
-        C5[Input / Output Contracts]
+        C1["Microservices / Domain Services"]
+        C2["Business Logic"]
+        C3["Idempotency and Retries"]
+        C4["Circuit Breakers and Bulkheads"]
+        C5["Input / Output Contracts"]
     end
     C --> C1
     C --> C2
@@ -52,45 +52,45 @@ flowchart TD
     C --> C4
     C --> C5
 
-    %% 3. Event / Async Layer
-    C --> D[Event / Async Layer]
+    %% Event / Async Layer
+    C --> D["Event / Async Layer"]
     subgraph EventAsync["Event / Async Layer"]
-        D1[Message Queues]
-        D2[Event Streams]
+        D1["Message Queues"]
+        D2["Event Streams"]
     end
     D --> D1
     D --> D2
 
-    %% 4. Integration Layer
-    C --> E[Integration Layer]
+    %% Integration Layer
+    C --> E["Integration Layer"]
     subgraph Integration["Integration Layer"]
-        E1[Legacy Systems]
-        E2[External APIs]
-        E3[Webhooks]
-        E4[Batch Interfaces]
+        E1["Legacy Systems"]
+        E2["External APIs"]
+        E3["Webhooks"]
+        E4["Batch Interfaces"]
     end
     E --> E1
     E --> E2
     E --> E3
     E --> E4
 
-    %% 5. Data Layer
-    D --> F[Data Layer]
+    %% Data Layer
+    D --> F["Data Layer"]
     E --> F
     subgraph Data["Data Layer"]
-        F1[Operational Databases]
-        F2[Data Warehouse / Lake]
-        F3[Caches]
-        F4[Data Lineage & Metadata]
+        F1["Operational Databases"]
+        F2["Data Warehouse / Lake"]
+        F3["Caches"]
+        F4["Data Lineage and Metadata"]
     end
     F --> F1
     F --> F2
     F --> F3
     F --> F4
 
-    %% 6. Security & Identity
-    subgraph Security["Security & Identity"]
-        S1[Zero Trust / Least Privilege / Auditability]
+    %% Security & Identity
+    subgraph Security["Security and Identity"]
+        S1["Zero Trust / Least Privilege / Auditability"]
     end
     B --> S1
     C --> S1
@@ -98,18 +98,18 @@ flowchart TD
     E --> S1
     F --> S1
 
-    %% 7. Governance & Policy
-    subgraph Governance["Governance & Policy"]
-        G1[Standards, Versioning, Lifecycle Management, Compliance]
+    %% Governance & Policy
+    subgraph Governance["Governance and Policy"]
+        G1["Standards, Versioning, Lifecycle Management, Compliance"]
     end
     B --> G1
     C --> G1
     E --> G1
     F --> G1
 
-    %% 8. Performance & Scalability
-    subgraph Performance["Performance & Scalability"]
-        P1[Caching, Async, Horizontal Scaling, Payload Optimization]
+    %% Performance & Scalability
+    subgraph Performance["Performance and Scalability"]
+        P1["Caching, Async Processing, Horizontal Scaling, Payload Optimization"]
     end
     B --> P1
     C --> P1
@@ -117,24 +117,24 @@ flowchart TD
     E --> P1
     F --> P1
 
-    %% 9. Developer Experience (DX)
+    %% Developer Experience (DX)
     subgraph DX["Developer Experience"]
-        DX1[Docs, SDKs, Portals, Sandbox, Examples]
+        DX1["Docs, SDKs, Portals, Sandbox, Examples"]
     end
     B --> DX1
     C --> DX1
 
-    %% 10. Data & Contract Integrity
-    subgraph DataIntegrity["Data & Contract Integrity"]
-        DI1[Schema Validation, Strong Contracts, Data Quality Checks]
+    %% Data & Contract Integrity
+    subgraph DataIntegrity["Data and Contract Integrity"]
+        DI1["Schema Validation, Strong Contracts, Data Quality Checks"]
     end
     C --> DI1
     D --> DI1
     F --> DI1
 
-    %% 11. Platform & Operating Model
-    subgraph Platform["Platform & Operating Model"]
-        PL1[Ownership, CI/CD, IaC, Cost Allocation, API Product Mgmt]
+    %% Platform & Operating Model
+    subgraph Platform["Platform and Operating Model"]
+        PL1["Ownership, CI/CD, IaC, Cost Allocation, API Product Management"]
     end
     B --> PL1
     C --> PL1
@@ -142,10 +142,10 @@ flowchart TD
     E --> PL1
     F --> PL1
 
-    %% Cross-Cutting Concerns (optional visual)
+    %% Cross-Cutting Concerns
     subgraph CrossCutting["Cross-Cutting Concerns"]
-        CC1[Observability: Metrics, Logs, Traces, Alerts, SLOs]
-        CC2[Traceability: Correlation IDs, Distributed Tracing, Audit Logs]
+        CC1["Observability: Metrics, Logs, Traces, Alerts, SLOs"]
+        CC2["Traceability: Correlation IDs, Distributed Tracing, Audit Logs"]
     end
     B --> CC1
     C --> CC1
@@ -157,7 +157,6 @@ flowchart TD
     D --> CC2
     E --> CC2
     F --> CC2
-
 
 
 ### Key Design Layer Capabilities for Production Engineering
