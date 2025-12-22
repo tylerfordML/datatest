@@ -1,18 +1,18 @@
 from fastapi import FastAPI
 from prometheus_client import make_asgi_app
-from app.api import router as api
-from app.health import router as health
-from app.logging.json import setup
-from app.middleware import HTTPRequestID
+from app.api import router as api_router
+from app.health import router as health_router
+from app.logs.config import setup_logging
+from app.middleware.request import RequestIDMiddleware
 
 setup_logging()
 
-app = FastAPI(title="Roman Numeral API")
+app = FastAPI(title="Roman Numeral Service")
 
-app.register_service(RequestID)
+app.add_middleware(RequestIDMiddleware)
 
-app.register_route(api)
-app.register_route(health)
+app.include_router(api_router)
+app.include_router(health_router)
 
-metrics_endpoint = make_asgi_app()
-app.mount("/metrics", metrics_endpoint)
+metrics_app = make_asgi_app()
+app.mount("/metrics", metrics_app)
