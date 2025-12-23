@@ -9,7 +9,7 @@ from app.models import (
     RomanNumeralRangeResponse,
     ErrorResponse
 )
-from app.metrics import (
+from app.service.metrics import (
     REQUEST_COUNT,
     REQUEST_LATENCY,
     CONVERSION_COUNT
