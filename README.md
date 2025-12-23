@@ -20,6 +20,28 @@ python -m app
 ### Run Tests
 pytest
 
+### Project Outline
+app/
+├── main.py                 # Application bootstrap
+├── api/
+│   └── router.py           # /romannumeral endpoint
+├── service/
+│   └── roman.py            # Core Roman numeral conversion logic
+├── middleware/
+│   └── request.py          # Request ID injection middleware
+├── metrics.py              # Prometheus metrics definitions
+├── health.py               # /health endpoint
+├── logs/
+│   ├── config.py           # JSON logging configuration
+│   └── utils.py            # Logger utilities
+tests/
+├── test_service.py         # Service unit tests
+├── test_api.py             # API endpoint tests
+├── test_headers.py      # Request ID middleware tests
+├── test_health.py          # Health endpoint tests
+├── test_metrics.py         # Metrics endpoint tests
+└── conftest.py             # Shared pytest fixtures
+
 ### Key Design Principles for Production Engineering
 - **Security-first:** Zero Trust, least privilege, and auditability.
 - **Observable by default:** Metrics, logs, and traces emitted at every layer.
