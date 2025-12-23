@@ -1,5 +1,5 @@
 import pytest
-from app.service import RomanNumeralTranslateService
+from app.service.roman import RomanNumeralTranslateService
 
 # -------------------------
 # Fixture

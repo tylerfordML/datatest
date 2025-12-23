@@ -19,4 +19,3 @@ def test_request_id_propagation(client):
     response = client.get("/v1/romannumeral?query=5", headers=headers)
     
     assert response.headers["X-Request-ID"] == "test-id-123"
-

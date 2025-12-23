@@ -67,5 +67,4 @@ def test_range_invalid_min_greater_than_max(client):
     """
     response = client.get("/v1/romannumeral?min=5&max=3")
     
-
     assert response.status_code == 400
