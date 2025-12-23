@@ -15,7 +15,11 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
 ### Run the Application
-python -m app
+uvicorn app.main:app
+
+## API Docs 
+Swagger UI → http://localhost:8000/docs
+OpenAPI JSON → http://localhost:8000/openapi.json
 
 ### Run Tests
 pytest
