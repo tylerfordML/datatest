@@ -4,7 +4,7 @@ def test_request_id_generated(client):
     Purpose: Verifies traceability middleware works for all requests
     
     """
-    response = client.get("/romannumeral?query=5")
+    response = client.get("/v1/romannumeral?query=5")
     
     assert "X-Request-ID" in response.headers
 
@@ -16,6 +16,7 @@ def test_request_id_propagation(client):
     
     """
     headers = {"X-Request-ID": "test-id-123"}
-    response = client.get("/romannumeral?query=5", headers=headers)
+    response = client.get("/v1/romannumeral?query=5", headers=headers)
     
     assert response.headers["X-Request-ID"] == "test-id-123"
+
