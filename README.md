@@ -1,4 +1,26 @@
+How to Build and Run the Project
+Prerequisites
 
+Runtime: Python 3.10+ (or adjust if your project uses another runtime)
+
+Package manager: pip / poetry / pipenv (pick one and be consistent)
+
+Optional: Docker (for reproducible local and CI environments)
+
+Local Setup
+git clone <repo-url>
+cd <repo-name>
+
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+
+pip install -r requirements.txt
+
+Run the Application
+python -m app
+
+Run Tests
+pytest
 ### Key Design Principles for Production Engineering
 - **Security-first:** Zero Trust, least privilege, and auditability.
 - **Observable by default:** Metrics, logs, and traces emitted at every layer.
