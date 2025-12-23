@@ -5,7 +5,7 @@ def test_single_conversion(client):
     Purpose: Verifies HTTP endpoint behavior and JSON response format
     
     """
-    response = client.get("/romannumeral?query=10")
+    response = client.get("/v1/romannumeral?query=10")
     
     assert response.status_code == 200
     assert response.json() == {
@@ -21,7 +21,7 @@ def test_invalid_query(client):
     Purpose: Validates input validation and proper error messaging
     
     """
-    response = client.get("/romannumeral?query=300")
+    response = client.get("/v1/romannumeral?query=300")
     
     assert response.status_code == 400
     assert "Input must be between" in response.json()["detail"]
@@ -34,7 +34,7 @@ def test_missing_query(client):
     Purpose: Ensures the service handles missing required parameters
     
     """
-    response = client.get("/romannumeral")
+    response = client.get("/v1/romannumeral")
     
     assert response.status_code == 400
 
@@ -45,7 +45,7 @@ def test_range_conversion(client):
     Purpose: Validates async processing and aggregation of multiple conversions
     
     """
-    response = client.get("/romannumeral?min=1&max=3")
+    response = client.get("/v1/romannumeral?min=1&max=3")
     
     assert response.status_code == 200
     expected = {
@@ -65,6 +65,7 @@ def test_range_invalid_min_greater_than_max(client):
     Purpose: Validates input validation for range queries
     
     """
-    response = client.get("/romannumeral?min=5&max=3")
+    response = client.get("/v1/romannumeral?min=5&max=3")
     
+
     assert response.status_code == 400
